@@ -152,8 +152,8 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
                     </div>
                 </div>
                 <h2>武器検索</h2>
-                <div className="flex flex-row space-x-2">
-                    <div className="form-control my-1 max-w-xs">
+                <div className="flex flex-row -ml-2 flex-wrap">
+                    <div className="form-control my-1 ml-2 max-w-xs">
                         <label className="input-group">
                             <span>名前</span>
                             <input type="search" placeholder="keyword" {...register("keyword", {
@@ -164,7 +164,7 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
                                    className="input input-bordered"/>
                         </label>
                     </div>
-                    <div className="form-control my-1 max-w-xs">
+                    <div className="form-control my-1 ml-2 max-w-xs">
                         <label className="input-group">
                             <span>武器種別</span>
                             <select className="select select-bordered" {...register("type")}>
