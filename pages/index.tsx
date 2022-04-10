@@ -89,29 +89,8 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
         // <form onSubmit={handleSubmit(onSubmit)}>
         <Layout>
             <section>
-                <h2>武器検索</h2>
-                <div className="flex flex-row space-x-2">
-                    <div className="form-control my-1 max-w-xs">
-                        <label className="input-group">
-                            <span>名前</span>
-                            <input type="search" placeholder="keyword" {...register("keyword", {
-                                required: true,
-                                max: 99,
-                                min: 1
-                            })}
-                                   className="input input-bordered"/>
-                        </label>
-                    </div>
-                    <div className="form-control my-1 max-w-xs">
-                        <label className="input-group">
-                            <span>武器種別</span>
-                            <select className="select select-bordered" {...register("type")}>
-                                <option value="">-</option>
-                                {weaponTypeOptions}
-                            </select>
-                        </label>
-                    </div>
-                </div>
+
+                <h3>キャラクターステータス</h3>
                 <div className="flex flex-row -ml-2 flex-wrap">
                     <div className="form-control ml-2 my-1">
                         <label className="input-group">
@@ -172,9 +151,33 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
                         </label>
                     </div>
                 </div>
-
+                <h2>武器検索</h2>
+                <div className="flex flex-row space-x-2">
+                    <div className="form-control my-1 max-w-xs">
+                        <label className="input-group">
+                            <span>名前</span>
+                            <input type="search" placeholder="keyword" {...register("keyword", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
+                    <div className="form-control my-1 max-w-xs">
+                        <label className="input-group">
+                            <span>武器種別</span>
+                            <select className="select select-bordered" {...register("type")}>
+                                <option value="">-</option>
+                                {weaponTypeOptions}
+                            </select>
+                        </label>
+                    </div>
+                </div>
             </section>
+
             <div className="divider"/>
+            <h3>使える武器一覧</h3>
             <section>
                 {weaponItems}
             </section>
