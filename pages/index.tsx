@@ -72,10 +72,10 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
         .filter((weapon) => formValues.type === "" || weapon.type === formValues.type)
         .filter((weapon) => formValues.keyword === "" || weapon.name.includes(formValues.keyword))
         .map((weapon) =>
-            <div key={weapon.name} className="flex flex-row items-center space-x-10">
+            <div key={weapon.name} className="flex flex-row items-center space-x-2">
                 <div>{weapon.type} {weapon.name}</div>
-                <div>筋力{weapon.requireStrength}/技量{weapon.requireDexterity}/知力{weapon.requireIntelligence}/信仰{weapon.requireFaith}/神秘{weapon.requireArcane}</div>
-                <div>物理{weapon.physicalAttack}/魔力{weapon.magicAttack}/聖{weapon.holyAttack}/雷{weapon.lightningAttack}/炎{weapon.fireAttack}</div>
+                {/*<div>筋力{weapon.requireStrength}/技量{weapon.requireDexterity}/知力{weapon.requireIntelligence}/信仰{weapon.requireFaith}/神秘{weapon.requireArcane}</div>*/}
+                <div>物{weapon.physicalAttack}/魔{weapon.magicAttack}/聖{weapon.holyAttack}/雷{weapon.lightningAttack}/炎{weapon.fireAttack}</div>
                 <div>
                     <a className="link" target="_blank"
                        href={encodeURI(`https://www.google.com/search?q=エルデンリング+${weapon.name}`)}
