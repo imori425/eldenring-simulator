@@ -62,6 +62,7 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
     console.log(errors);
 
     const formValues = watch();
+
     const weaponItems = weapons
         .filter((weapon) => weapon.requireStrength <= formValues.str)
         .filter((weapon) => weapon.requireDexterity <= formValues.dex)
@@ -69,11 +70,17 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
         .filter((weapon) => weapon.requireArcane <= formValues.arc)
         .filter((weapon) => weapon.requireFaith <= formValues.fth)
         .filter((weapon) => formValues.type === "" || weapon.type === formValues.type)
+        .filter((weapon) => formValues.keyword === "" || weapon.name.includes(formValues.keyword))
         .map((weapon) =>
-            <div key={weapon.name}>
-                <span>{weapon.name} {weapon.requireStrength}/{weapon.requireDexterity}/{weapon.requireIntelligence}/{weapon.requireFaith}/{weapon.requireArcane}</span>
-                <a target="_blank" href={encodeURI(`https://www.google.com/search?q=エルデンリング+${weapon.name}`)}
-                   rel="noreferrer">検索</a>
+            <div key={weapon.name} className="flex flex-row items-center space-x-10">
+                <div>{weapon.type} {weapon.name}</div>
+                <div>筋力{weapon.requireStrength}/技量{weapon.requireDexterity}/知力{weapon.requireIntelligence}/信仰{weapon.requireFaith}/神秘{weapon.requireArcane}</div>
+                <div>物理{weapon.physicalAttack}/魔力{weapon.magicAttack}/聖{weapon.holyAttack}/雷{weapon.lightningAttack}/炎{weapon.fireAttack}</div>
+                <div>
+                    <a className="link" target="_blank"
+                       href={encodeURI(`https://www.google.com/search?q=エルデンリング+${weapon.name}`)}
+                       rel="noreferrer">検索</a>
+                </div>
             </div>
         );
 
@@ -81,70 +88,93 @@ export const SearchPage: React.FC<PageProps> = ({weapons, weaponTypes}: PageProp
     return (
         // <form onSubmit={handleSubmit(onSubmit)}>
         <Layout>
+            <section>
+                <h2>武器検索</h2>
+                <div className="flex flex-row space-x-2">
+                    <div className="form-control my-1 max-w-xs">
+                        <label className="input-group">
+                            <span>名前</span>
+                            <input type="search" placeholder="keyword" {...register("keyword", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
+                    <div className="form-control my-1 max-w-xs">
+                        <label className="input-group">
+                            <span>武器種別</span>
+                            <select className="select select-bordered" {...register("type")}>
+                                <option value="">-</option>
+                                {weaponTypeOptions}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div className="flex flex-row -ml-2 flex-wrap">
+                    <div className="form-control ml-2 my-1">
+                        <label className="input-group">
+                            <span>筋力</span>
+                            <input type="number" placeholder="str" {...register("str", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
+                    <div className="form-control ml-2  my-1">
+                        <label className="input-group">
+                            <span>技量</span>
+                            <input type="number" placeholder="dex" {...register("dex", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
 
-            <div className="flex">
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>キーワード</span>
-                        <input type="search" placeholder="keyword" {...register("keyword", {
-                            required: true,
-                            max: 99,
-                            min: 1
-                        })}
-                               className="input input-bordered"/>
-                    </label>
-                </div>
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>武器種別</span>
-                        <select className="select select-bordered" {...register("type")}>
-                            <option value="">-</option>
-                            {weaponTypeOptions}
-                        </select>
-                    </label>
-                </div>
-            </div>
-            <div className="flex">
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>筋力</span>
-                        <input type="number" placeholder="str" {...register("str", {required: true, max: 99, min: 1})}
-                               className="input input-bordered"/>
-                    </label>
-                </div>
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>技量</span>
-                        <input type="number" placeholder="dex" {...register("dex", {required: true, max: 99, min: 1})}
-                               className="input input-bordered"/>
-                    </label>
-                </div>
-
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>知力</span>
-                        <input type="number" placeholder="int" {...register("int", {required: true, max: 99, min: 1})}
-                               className="input input-bordered"/>
-                    </label>
-                </div>
+                    <div className="form-control  ml-2 my-1">
+                        <label className="input-group">
+                            <span>知力</span>
+                            <input type="number" placeholder="int" {...register("int", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
 
 
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>信仰</span>
-                        <input type="number" placeholder="fth" {...register("fth", {required: true, max: 99, min: 1})}
-                               className="input input-bordered"/>
-                    </label>
+                    <div className="form-control ml-2 my-1">
+                        <label className="input-group">
+                            <span>信仰</span>
+                            <input type="number" placeholder="fth" {...register("fth", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
+                    <div className="form-control ml-2 my-1">
+                        <label className="input-group">
+                            <span>神秘</span>
+                            <input type="number" placeholder="arc" {...register("arc", {
+                                required: true,
+                                max: 99,
+                                min: 1
+                            })}
+                                   className="input input-bordered"/>
+                        </label>
+                    </div>
                 </div>
-                <div className="form-control my-1 max-w-xs">
-                    <label className="input-group">
-                        <span>神秘</span>
-                        <input type="number" placeholder="arc" {...register("arc", {required: true, max: 99, min: 1})}
-                               className="input input-bordered"/>
-                    </label>
-                </div>
-            </div>
 
+            </section>
+            <div className="divider"/>
             <section>
                 {weaponItems}
             </section>
