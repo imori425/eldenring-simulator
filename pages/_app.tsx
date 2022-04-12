@@ -1,12 +1,13 @@
-import { AppProps } from "next/app";
-import "github-markdown-css/github-markdown-light.css";
-import "highlight.js/styles/github.css";
 import "../styles/globals.css";
 import React from "react";
+import {RecoilRoot} from "recoil";
+import {AppType} from "next/dist/shared/lib/utils";
 
-function App({ Component, pageProps }: AppProps) {
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Component {...pageProps} />;
+const MyApp: AppType = ({Component, pageProps}) => {
+
+    return <RecoilRoot>
+        <Component {...pageProps}/>;
+    </RecoilRoot>
 }
 
-export default App;
+export default MyApp;
