@@ -20,7 +20,7 @@ export default function Header() {
             </Link>
           </li>
           <li className="pl-5">
-            <Link href={"/spell"} as="/spell" prefetch>
+            <Link href={"/spell"} as="/spell">
                {/*eslint-disable-next-line jsx-a11y/anchor-is-valid*/}
               <a className="">スペル検索</a>
             </Link>
