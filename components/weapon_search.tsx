@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import Layout from "./layout";
-import {SearchPageProps, SearchForm} from "../pages";
+import {WeaponSearchPageProps, SearchForm} from "../pages";
 import {useRecoilState} from "recoil";
 import {searchFormRecoilState} from "../lib/atom";
 
-export const SearchComponent: React.FC<SearchPageProps> = ({weapons, weaponTypes, spells}: SearchPageProps) => {
+export const SearchComponent: React.FC<WeaponSearchPageProps> = ({weapons, weaponTypes}: WeaponSearchPageProps) => {
 
     const [searchForm, setSearchForm] = useRecoilState(searchFormRecoilState);
 
@@ -49,34 +49,13 @@ export const SearchComponent: React.FC<SearchPageProps> = ({weapons, weaponTypes
             </div>
         );
 
-    const spellItems = spells
-        .filter((spell) => spell.int <= formValues.int)
-        .filter((spell) => spell.arc <= formValues.arc)
-        .filter((spell) => spell.fth <= formValues.fth)
-        .filter((spell) => formValues.keyword === "" || spell.name.includes(formValues.keyword))
-        .map((spell) =>
-            <div key={spell.name} className="flex flex-row flex-auto items-center space-x-2">
-                <div>{spell.name}</div>
-                <div>知力{spell.int}/信仰{spell.fth}/神秘{spell.arc}</div>
-                <div>fp:{spell.fp}/slot:{spell.slot}</div>
-                <div>
-                    <a className="link" target="_blank"
-                       href={encodeURI(`https://www.google.com/search?q=エルデンリング+${spell.name}`)}
-                       rel="noreferrer">G</a>
-                </div>
-                <div>
-                    <a className="link" target="_blank"
-                       href={encodeURI(`https://www.youtube.com/results?search_query=エルデンリング+${spell.name}`)}
-                       rel="noreferrer">Y</a>
-                </div>
-            </div>
-        );
 
     const weaponTypeOptions = weaponTypes.map((t) => <option key={t} value={t}>{t}</option>)
     return (
         // <form onSubmit={handleSubmit(onSubmit)}>
         <Layout>
             <section>
+                <div className="text-2xl my-5">武器検索</div>
                 <form>
                     <h3>キャラクターステータス</h3>
                     <div className="flex flex-row -ml-2 flex-wrap">
@@ -169,11 +148,6 @@ export const SearchComponent: React.FC<SearchPageProps> = ({weapons, weaponTypes
             <h3>使える武器一覧</h3>
             <section>
                 {weaponItems}
-            </section>
-            <div className="divider"/>
-            <h3>使えるスペル（魔法、祈祷）</h3>
-            <section>
-                {spellItems}
             </section>
         </Layout>
 
